@@ -22,7 +22,7 @@ async function addProduct(formData: FormData) {
     data: { name, description, imageUrl, price },
   });
 
-  // redirect("/");
+  redirect("/");
 }
 
 export default function AddProductPage() {
