@@ -57,12 +57,12 @@ export async function clearCart(cartId: string) {
     };
   }
   const cart = await prisma.cart.findUnique({
-    where: { id: cartId},
-  })
-  if(!!cart?.userId === false) {
+    where: { id: cartId },
+  });
+  if (!!cart?.userId === false) {
     return {
-      message: "Login"
-    }
+      message: "Login",
+    };
   }
   await prisma.cartItem.deleteMany({
     where: { cartId: cartId },

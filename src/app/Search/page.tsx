@@ -4,7 +4,7 @@ import { prisma } from "@/lib/db/prisma";
 import { Metadata } from "next";
 
 interface SearchPageProps {
-  searchParams: { query: string, page:string };
+  searchParams: { query: string; page: string };
 }
 
 export function generateMetadata({
@@ -16,7 +16,7 @@ export function generateMetadata({
 }
 
 export default async function SearchPage({
-  searchParams: { query,page },
+  searchParams: { query, page },
 }: SearchPageProps) {
   const products = await prisma.product.findMany({
     where: {

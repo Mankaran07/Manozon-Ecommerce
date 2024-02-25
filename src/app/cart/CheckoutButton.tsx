@@ -29,7 +29,7 @@ export default function CheckoutButton({
     return () => {
       clearTimeout(updateCountdown as any);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="flex items-center gap-2">
@@ -67,13 +67,11 @@ export default function CheckoutButton({
       )}
       {!isPending && checkLogin && (
         <div className="flex flex-col">
-        <span className="text-error">
-          Login First!!!
-        </span>
-        <p className="text-sm text-zinc-700">
-          Redirecting to the home page in {countdown} seconds...
-        </p>
-      </div>
+          <span className="text-error">Login First!!!</span>
+          <p className="text-sm text-zinc-700">
+            Redirecting to the home page in {countdown} seconds...
+          </p>
+        </div>
       )}
     </div>
   );
