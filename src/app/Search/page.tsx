@@ -1,9 +1,10 @@
+import PaginationBar from "@/components/PaginationBar";
 import ProductCard from "@/components/ProductCard";
 import { prisma } from "@/lib/db/prisma";
 import { Metadata } from "next";
 
 interface SearchPageProps {
-  searchParams: { query: string };
+  searchParams: { query: string, page:string };
 }
 
 export function generateMetadata({
@@ -15,7 +16,7 @@ export function generateMetadata({
 }
 
 export default async function SearchPage({
-  searchParams: { query },
+  searchParams: { query,page },
 }: SearchPageProps) {
   const products = await prisma.product.findMany({
     where: {
@@ -26,7 +27,13 @@ export default async function SearchPage({
     },
     orderBy: { id: "desc" },
   });
+  const currentPage = parseInt(page);
 
+  const pageSize = 6;
+
+  const totalItemCount = products.length;
+
+  const totalPages = Math.ceil(totalItemCount / pageSize);
   if (products.length === 0) {
     return <div className="text-center">No Products Found</div>;
   }
@@ -36,6 +43,9 @@ export default async function SearchPage({
       {products.map((product) => (
         <ProductCard product={product} key={product.id} />
       ))}
+      {totalPages > 1 && (
+        <PaginationBar currentPage={currentPage} totalPages={totalPages} />
+      )}
     </div>
   );
 }

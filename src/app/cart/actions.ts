@@ -49,3 +49,25 @@ export async function setProductQuantity(productId: string, quantity: number) {
   }
   revalidatePath("/cart");
 }
+
+export async function clearCart(cartId: string) {
+  if (cartId === "123") {
+    return {
+      message: "Cart is empty.Please Add Some Products",
+    };
+  }
+  const cart = await prisma.cart.findUnique({
+    where: { id: cartId},
+  })
+  if(!!cart?.userId === false) {
+    return {
+      message: "Login"
+    }
+  }
+  await prisma.cartItem.deleteMany({
+    where: { cartId: cartId },
+  });
+  await prisma.cart.delete({
+    where: { id: cartId },
+  });
+}

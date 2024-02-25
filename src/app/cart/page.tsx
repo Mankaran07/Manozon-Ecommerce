@@ -1,7 +1,8 @@
 import { getCart } from "@/lib/db/cart";
 import CartEntry from "./CartEntry";
-import { setProductQuantity } from "./actions";
+import { setProductQuantity , clearCart} from "./actions";
 import { formatPrice } from "@/lib/format";
+import CheckoutButton from "./CheckoutButton";
 
 export const metadata = {
   title: "Your Cart - Manozon",
@@ -24,7 +25,7 @@ export default async function CartPage() {
         <p className="mb-3 font-bold">
           Total: {formatPrice(cart?.subtotal || 0)}
         </p>
-        <button className="btn-primary btn sm:w-[200px]">Checkout</button>
+        <CheckoutButton cartId={cart?.id || "123"} clearCart= {clearCart}/>
       </div>
     </div>
   );
